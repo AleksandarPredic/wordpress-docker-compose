@@ -86,6 +86,7 @@ Copy the `docker-compose.yml` file into a new directory. In the directory you cr
 
 * `wp-data` – here you add the database dump
 * `wp-app` – here you copy your existing WordPress code
+* `wp-source` – here you can keep your git repository and link it with wp-app using volumes
 
 You can now use the `up` command:
 
@@ -103,7 +104,12 @@ define('WP_SITEURL','http://wp-app.local');
 ### Creating database dumps
 
 ```
-./export.sh
+./scripts/export.sh
+```
+
+### Accessing db container bash
+```
+docker-compose exec db bash
 ```
 
 ### Developing a Theme
