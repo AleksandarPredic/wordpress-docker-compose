@@ -107,6 +107,11 @@ define('WP_SITEURL','http://wp-app.local');
 ./scripts/export.sh
 ```
 
+### Import DB script
+```
+./scripts/import.sh {wp-data/filename.sql}
+```
+
 ### Accessing db container bash
 ```
 docker-compose exec db bash
