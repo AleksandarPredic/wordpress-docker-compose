@@ -168,3 +168,12 @@ wp plugin list
 You can also visit `http://127.0.0.1:8080` to access phpMyAdmin after starting the containers.
 
 The default username is `root`, and the password is the same as supplied in the `.env` file.
+
+## Cons I noticed
+
+### WPClI takes much longer to execute search replace 
+I had to make some search replace to the DB of around 300MB. I used `docker-compose run --rm wpcli ...` and I noticed 
+that this takes too long to do some replacements. I tested this in another WPCli instance and I noticed that  it runs 
+many times faster. 
+
+Please note that this is yet to be confirmed 100% when I use this for more projects.
