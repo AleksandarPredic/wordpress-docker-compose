@@ -169,6 +169,17 @@ You can also visit `http://127.0.0.1:8080` to access phpMyAdmin after starting t
 
 The default username is `root`, and the password is the same as supplied in the `.env` file.
 
+### Mailhog
+
+You can also visit `http://127.0.0.1:8025` to access phpMyAdmin after starting the containers.
+
+The important part is the WP configuration for the Mailhog, added in MU plugins via wp container volume.
+
+### Follow logs
+```
+docker-compose logs -f wp
+```
+
 ## Cons I noticed
 
 ### WPClI takes much longer to execute search replace 

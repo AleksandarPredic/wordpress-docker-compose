@@ -7,7 +7,8 @@ services:
       - ${IP}:80:80 # change ip if required
     volumes:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./wp-app:/var/www/html # Full wordpress project
+      - ./wp-app:/var/www/html # Full WordPress project
+      - ./config/mu-plugins/mailhog.php:/var/www/html/wp-content/mu-plugins/mailhog.php # Force WordPress to send emails via mailhog
       #- ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
       #- ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name # Theme development
     environment:
@@ -61,6 +62,12 @@ services:
     environment:
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+
+  mailhog:
+    image: mailhog/mailhog # https://hub.docker.com/r/mailhog/mailhog/
+    ports:
+      - ${IP}:1025:1025 # smtp server
+      - ${IP}:8025:8025 # web ui
 
 volumes:
   db_data:
