@@ -9,8 +9,8 @@ services:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./wp-app:/var/www/html # Full WordPress project
       - ./config/mu-plugins/mailhog.php:/var/www/html/wp-content/mu-plugins/mailhog.php # Force WordPress to send emails via mailhog
-      #- ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
-      #- ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name # Theme development
+      #- ./wp-source/plugin-name/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
+      #- ./wp-source/theme-name/:/var/www/html/wp-content/themes/theme-name # Theme development
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: "${DB_NAME}"
@@ -68,6 +68,29 @@ services:
     ports:
       - ${IP}:1025:1025 # smtp server
       - ${IP}:8025:8025 # web ui
+
+  composer2:
+    image: composer:latest # https://hub.docker.com/_/composer
+    user: 1000:1000
+    working_dir: /var/www/html
+    volumes:
+      - ./var/www/html
+      #- ./wp-source/plugin-name/:/var/www/html/wp-content/plugins/plugin-name # Plugin executing composer folder
+      #- ./wp-source/theme-name/:/var/www/html/wp-content/themes/theme-name # Theme executing composer folder
+    depends_on:
+      - wp
+
+  node15:
+    image: node:15 # https://hub.docker.com/_/node
+    user: 1000:1000
+    working_dir: /var/www/html
+    volumes:
+      - ./var/www/html
+      #- ./wp-source/plugin-name/:/var/www/html/wp-content/plugins/plugin-name # Plugin executing npm folder
+      #- ./wp-source/theme-name/:/var/www/html/wp-content/themes/theme-name # Theme executing npm folder
+    depends_on:
+      - wp
+
 
 volumes:
   db_data:

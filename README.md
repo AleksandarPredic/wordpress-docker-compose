@@ -180,6 +180,24 @@ The important part is the WP configuration for the Mailhog, added in MU plugins 
 docker-compose logs -f wp
 ```
 
+### Composer
+
+The docker compose configuration also provides a service for using the composer
+
+Example command:
+```
+docker-compose run --rm composer2 composer install --ignore-platform-reqs -d "/var/www/html/wp-content/plugins/plugin-name/"
+```
+
+### Node
+
+The docker compose configuration also provides a service for using the nodejs
+
+Example command:
+```
+docker-compose run --rm node15 bash -c "cd /var/www/html/wp-content/themes/theme-name/ && npm install"
+```
+
 ## Cons I noticed
 
 ### WPClI takes much longer to execute search replace 
