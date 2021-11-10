@@ -1,0 +1,1 @@
+docker-compose up -d && docker-compose logs -f wp | grep --line-buffered -i -E --color "php7:"

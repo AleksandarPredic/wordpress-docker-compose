@@ -7,6 +7,9 @@ With this project you can quickly run the following:
 - [WordPress and WP CLI](https://hub.docker.com/_/wordpress/)
 - [phpMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
 - [MySQL](https://hub.docker.com/_/mysql/)
+- [Mailhog](https://hub.docker.com/r/mailhog/mailhog/)
+- [composer2](https://hub.docker.com/_/composer)
+- [node15](https://hub.docker.com/_/node)
 
 Contents:
 
@@ -51,6 +54,11 @@ The containers are now built and running. You should be able to access the WordP
 For convenience you may add a new entry into your hosts file.
 
 ## Usage
+
+### Using scripts to start, stop or interact with containers
+
+You can easily use scripts in the `script` folder which contain a easier way to execute some of the 
+commands mentioned below.
 
 ### Starting containers
 
@@ -178,6 +186,11 @@ The important part is the WP configuration for the Mailhog, added in MU plugins 
 ### Follow logs
 ```
 docker-compose logs -f wp
+```
+
+#### Follow only WordPress PHP logs
+```
+docker-compose logs -f wp | grep --line-buffered -i -E --color "php7:"
 ```
 
 ### Composer
