@@ -88,6 +88,12 @@ Use `-v` if you need to remove the database volume which is used to persist the 
 docker-compose down -v
 ```
 
+### Remove containers and volumes
+```
+docker-compose rm -sv
+```
+
+
 ### Project from existing source
 
 Copy the `docker-compose.yml` file into a new directory. In the directory you create two folders:
