@@ -188,6 +188,19 @@ The important part is the WP configuration for the Mailhog, added in MU plugins 
 docker-compose logs -f wp
 ```
 
+Additionally you should add this to the `wp-config.php` file:
+```PHP
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', true);
+define('SCRIPT_DEBUG', true);
+define('SAVEQUERIES', true);
+define('WP_DISABLE_FATAL_ERROR_HANDLER', true);
+define( 'WP_AUTO_UPDATE_CORE', false );
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+```
+
 #### Follow only WordPress PHP logs
 ```
 docker-compose logs -f wp | grep --line-buffered -i -E --color "php7:"
