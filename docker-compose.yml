@@ -93,6 +93,15 @@ services:
     depends_on:
       - wp
 
+  sage9: # Use this for sage9 pipeline deployment
+    image: lramos1994/sage9-pipeline # https://hub.docker.com/r/lramos1994/sage9-pipeline
+    working_dir: /var/www/html
+    volumes:
+      - ./var/www/html
+      #- ./wp-source/sage9-theme-name/:/var/www/html/wp-content/themes/sage9-theme-name
+    depends_on:
+      - wp
+
 
 volumes:
   db_data:

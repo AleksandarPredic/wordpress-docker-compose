@@ -230,6 +230,16 @@ Example command:
 docker-compose run --rm node15 bash -c "cd /var/www/html/wp-content/themes/theme-name/ && npm install"
 ```
 
+### Sage 9 deployment pipeline docker image
+
+This docker compose configuration also include `sage9` service allow you for various usage scenarios 
+if you have sage 9 theme.
+
+Fire up the bash with the command and test what you need to test
+```
+docker-compose run --rm yarn bash
+```
+
 ## Cons I noticed
 
 ### WPClI takes much longer to execute search replace 
