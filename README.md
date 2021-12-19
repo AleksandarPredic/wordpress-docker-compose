@@ -240,14 +240,10 @@ Fire up the bash with the command and test what you need to test
 docker-compose run --rm yarn bash
 ```
 
-## Cons I noticed
+## Other
 
-### WPClI takes much longer to execute search replace 
-I had to make some search replace to the DB of around 300MB. I used `docker-compose run --rm wpcli ...` and I noticed 
-that this takes too long to do some replacements. I tested this in another WPCli instance and I noticed that  it runs 
-many times faster. 
-
-Please note that this is yet to be confirmed 100% when I use this for more projects.
-
-## TODO
-* https://medium.com/redbubble/running-a-docker-container-as-a-non-root-user-7d2e00f8ee15
+### Running a Docker container as a non-root user
+```
+user: ${CURRENT_UID} # Run docker container as current user
+```
+This is used to set and run docker as the current user https://medium.com/redbubble/running-a-docker-container-as-a-non-root-user-7d2e00f8ee15
