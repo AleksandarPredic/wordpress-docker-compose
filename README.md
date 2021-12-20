@@ -239,11 +239,3 @@ Fire up the bash with the command and test what you need to test
 ```
 docker-compose run --rm yarn bash
 ```
-
-## Other
-
-### Running a Docker container as a non-root user
-```
-user: ${CURRENT_UID} # Run docker container as current user
-```
-This is used to set and run docker as the current user https://medium.com/redbubble/running-a-docker-container-as-a-non-root-user-7d2e00f8ee15
