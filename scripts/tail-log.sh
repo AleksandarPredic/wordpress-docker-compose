@@ -1,0 +1,1 @@
+(tail -f wp-app/wp-content/debug.log | grep --line-buffered -i -E --color "PHP")
