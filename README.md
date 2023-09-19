@@ -53,6 +53,11 @@ The containers are now built and running. You should be able to access the WordP
 
 For convenience you may add a new entry into your hosts file.
 
+## Rebuilding docker wp image after changes
+
+If you need to update the PHP version of the docker image used for wp, edit the Dockerfile in `config/php/Dockerfile` and
+then run `docker-compose up -d --build wp`
+
 ## Usage
 
 ### Using scripts to start, stop or interact with containers
@@ -126,7 +131,12 @@ define('WP_SITEURL','http://wp-app.local');
 ./scripts/import.sh {wp-data/filename.sql}
 ```
 
-### Accessing db container bash
+### Accessing WP container bash
+```
+docker-compose exec wp bash
+```
+
+### Accessing DB container bash
 ```
 docker-compose exec db bash
 ```
@@ -149,33 +159,17 @@ volumes:
   - ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name
 ```
 
+### Composer
+
+Access the `wp` container bash while you have your project started. `docker-compose exec wp bash`.
+Execute composer commands.
+
 ### WP CLI
 
-The docker compose configuration also provides a service for using the [WordPress CLI](https://developer.wordpress.org/cli/commands/).
+Access the `wp` container bash while you have your project started. `docker-compose exec wp bash`.
+Execute wp cli commands.
 
-Sample command to install WordPress:
-
-```
-docker-compose run --rm wpcli core install --url=http://localhost --title=test --admin_user=admin --admin_email=test@example.com
-```
-
-Or to list installed plugins:
-
-```
-docker-compose run --rm wpcli plugin list
-```
-
-For an easier usage you may consider adding an alias for the CLI:
-
-```
-alias wp="docker-compose run --rm wpcli"
-```
-
-This way you can use the CLI command above as follows:
-
-```
-wp plugin list
-```
+* https://developer.wordpress.org/cli/commands/
 
 ### phpMyAdmin
 
@@ -212,15 +206,6 @@ error_reporting(E_ALL);
 docker-compose logs -f wp | grep --line-buffered -i -E --color "php7:"
 ```
 
-### Composer
-
-The docker compose configuration also provides a service for using the composer
-
-Example command:
-```
-docker-compose run --rm composer2 composer install --ignore-platform-reqs -d "/var/www/html/wp-content/plugins/plugin-name/"
-```
-
 ### Node
 
 The docker compose configuration also provides a service for using the nodejs
@@ -239,3 +224,30 @@ Fire up the bash with the command and test what you need to test
 ```
 docker-compose run --rm yarn bash
 ```
+
+## xdebug configuration
+
+In the `docker-compose.yml`, under `wp` container volumes, we have disabled `./config/php/conf.d/xdebug-off.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini`
+xdebug by the default.
+
+To enable it, uncomment the line above which adds `xdebug-on.ini` config and reboot.
+
+You will not have the `xdebug` enabled.
+
+### Configuring PHPStorm for xdebug
+
+1. Go to the preferences -> PHP -> debug and check Break at first line PHP script.
+2. Start listening for the incoming connections in PHPStorm (the phone icon on the top need to be enabled).
+3. The PHPStorm will auto-initiate server settings first time it detect the xdebug request.
+4. Go to the preferences -> PHP -> servers, find the automatically added server, and map the paths to the docker server.
+   1. Look for trhe 127.0.0.1 server
+      * Name is: 127.0.0.1
+      * Host is: 127.0.0.1
+      * Port: 80
+      * Debugger: Xdebug
+      * Use path mappings: checked
+      * Below you need to map the paths to the docker server. Hint: `wp-app` folder will be mapped to `/var/www/html`
+5. Start debugging by adding breakpoint into your application. If this doesn't work, check the mappings.
+
+## Useful links
+* https://matthewsetter.com/setup-step-debugging-php-xdebug3-docker/
